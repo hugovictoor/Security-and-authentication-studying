@@ -1,3 +1,4 @@
+require("dotenv").config()
 const express = require("express");
 const ejs = require("ejs");
 const mongoose = require("mongoose")
@@ -9,7 +10,7 @@ app.use(express.static("public"));
 app.use(express.urlencoded());
 app.set("view engine", "ejs");
 
-const mongoAtlasUri = "mongodb+srv://silvestrinivictor:w2Pg0RlF3WCok0Zv@cluster0.wlzdvwm.mongodb.net/SecurityDB";
+const mongoAtlasUri = proccess.env.SECRET_DB ;
 mongoose.connect(mongoAtlasUri);
 
 const userSchema = new mongoose.Schema({
@@ -17,8 +18,8 @@ const userSchema = new mongoose.Schema({
     password: String
 });
 
-const secret = "Thisisourlittlesecret."
-userSchema.plugin(encrypt, { secert: secret, encryptedFields: ["password"] });
+const secret = proccess.env.SECRET_KEY;
+userSchema.plugin(encrypt, { secret: secret, encryptedFields: ["password"] });
 
 const User = new mongoose.model("User", userSchema);
 
