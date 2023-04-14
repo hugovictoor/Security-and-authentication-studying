@@ -15,7 +15,7 @@ app.use(express.urlencoded({ extended: true }));
 app.set("view engine", "ejs");
 
 app.use(session({
-    secret: "Our little secret is right here.",
+    secret: process.env.SRECRET_PASSPORT,
     resave: false,
     saveUninitialized: false
 }));
